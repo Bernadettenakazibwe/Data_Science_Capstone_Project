@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import MinMaxScaler
 
 # Load the dataset with correct headers
 file_path = "Global_Temp.csv"  # Use the correct file path
@@ -88,38 +89,40 @@ for col in columns:
     plt.ylabel(f'Temperature anomaly for {col}', fontsize=12)
     plt.grid(axis="y", linestyle="--", alpha=0.7)  # Add grid for readability
     plt.show()
-    plt.savefig((f'Box_plots_no_outliers/Boxplot{col}.png'), dpi=300)
+    #plt.savefig((f'Box_plots_no_outliers/Boxplot{col}.png'), dpi=300)
 
 
 #Feature Engineering - creating new features like seasons, 5-year moving average
 
 # Convert 'Year' to integer
-df_cleaned["Year"] = df_cleaned["Year"].astype(int)
+df_cleaned.loc[:, "Year"] = df_cleaned["Year"].astype(int)
 
 # 🔹 1. Create a 5-Year Moving Average for Annual Temperature Anomaly (J-D)
-df_cleaned["5-Year Moving Avg"] = df_cleaned["J-D"].rolling(window=5, min_periods=1).mean()
+df_cleaned.loc[:, "5-Year Moving Avg"] = df_cleaned["J-D"].rolling(window=5, min_periods=1).mean()
 
 # 🔹 2. Extract Month Feature (Create a new column for each month)
-df_long = df_cleaned.melt(id_vars=["Year"], value_vars=df_cleaned.columns[1:-5], var_name="Month", value_name="Temp_Anomaly")
+month_columns = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+df_long = df_cleaned.melt(id_vars=["Year"], value_vars=month_columns, var_name="Month", value_name="Temp_Anomaly")
 
 # 🔹 3. Encode Seasons as Categorical Variables
-season_mapping = {
-    "DJF": "Winter",
-    "MAM": "Spring",
-    "JJA": "Summer",
-    "SON": "Fall"
-}
+season_mapping = {"DJF": "Winter", "MAM": "Spring", "JJA": "Summer", "SON": "Fall"}
 
-df_season = df_cleaned[["Year", "DJF", "MAM", "JJA", "SON"]].melt(id_vars=["Year"], var_name="Season", value_name="Temp_Anomaly")
+# Ensure seasonal columns exist
+season_columns = ["DJF", "MAM", "JJA", "SON"]
+df_season = df_cleaned[["Year"] + season_columns].melt(id_vars=["Year"], var_name="Season", value_name="Temp_Anomaly")
+
 df_season["Season"] = df_season["Season"].map(season_mapping)
-
+print(df_season.head())
 # 🔹 4. Normalize Temperature Anomaly Data
 scaler = MinMaxScaler()
 df_cleaned[["J-D", "D-N", "DJF", "MAM", "JJA", "SON"]] = scaler.fit_transform(df_cleaned[["J-D", "D-N", "DJF", "MAM", "JJA", "SON"]])
 
+# 🔹 5. Merge Everything into One DataFrame
+df_final = df_cleaned.merge(df_long, on="Year", how="left").merge(df_season, on="Year", how="left")
+print(df_final.isnull().sum())   #No missing values
+print(df_final.duplicated().sum())
+print(df_final.head())
 # Save the processed dataset
-df.to_csv("Feature_Engineered_Global_Temp.csv", index=False)
+df_final.to_csv("Feature_Engineered_Global_Temp.csv", index=False)
+print("✅ Feature Engineering Complete! Data saved as 'Feature_Engineered_Global_Temp.csv'")
 
-print("✅ Feature Engineering Complete! Data saved as 'Feature_Engineered_Global_Temp.csv'") 
-
-# You need to save all the features in one file to use during the Exploratory data analysis
