@@ -20,15 +20,15 @@ for col in columns_to_convert:
 missing_values = df.isnull().sum()
 
 # Display cleaned dataset info
-#print(df.info())
-#print("\nMissing Values in Each Column:")
-#print(missing_values) #Two missing values one in each of D-N and DJF
-#print(df.head())
+print(df.info())
+print("\nMissing Values in Each Column:")
+print(missing_values) #Two missing values one in each of D-N and DJF
+
 
 df.dropna(inplace=True)
 
 columns= ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','J-D','D-N','DJF','MAM','JJA','SON']
-#print(f'Statistical Analysis: \n {df[columns].describe()}')
+print(f'Statistical Analysis: \n {df[columns].describe()}')
 
 
 # Exploratory Data Analysis
@@ -113,9 +113,6 @@ df_season = df_cleaned[["Year"] + season_columns].melt(id_vars=["Year"], var_nam
 
 df_season["Season"] = df_season["Season"].map(season_mapping)
 print(df_season.head())
-# 🔹 4. Normalize Temperature Anomaly Data
-scaler = MinMaxScaler()
-df_cleaned[["J-D", "D-N", "DJF", "MAM", "JJA", "SON"]] = scaler.fit_transform(df_cleaned[["J-D", "D-N", "DJF", "MAM", "JJA", "SON"]])
 
 # 🔹 5. Merge Everything into One DataFrame
 df_final = df_cleaned.merge(df_long, on="Year", how="left").merge(df_season, on="Year", how="left")
