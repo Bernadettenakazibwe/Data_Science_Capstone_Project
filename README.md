@@ -6,9 +6,9 @@
 ## About the project:
 
 
-###Data Source : 
+### Data Source : 
 
-  <Data_Science_Capstone_Project/Global_Temp.csv/>
+ [Global_Temp.csv](Data_Science_Capstone_Project/Global_Temp.csv)
 ### Tools  and Technologies used:
 
 • Python (for data processing and machine learning) 
@@ -18,7 +18,7 @@
  o Statsmodels (statistical modeling) 
  • Streamlit (for deployment as an interactive web application)
  • Tableau/Power BI (for advanced visualizations and dashboards) 
- • (IDE for coding)
+ •VS code(IDE for coding)
 
 ###Data Overview:
 Year   Jan  Feb   Mar   Apr  May   Jun   Jul   Aug   Sep      D-N       DJF     MAM     JJA     SON     5-Year Moving Avg  Month  Temp_Anomaly_x  Season  Temp_Anomaly_y
@@ -39,14 +39,16 @@ Year   Jan  Feb   Mar   Apr  May   Jun   Jul   Aug   Sep      D-N       DJF     
  - Removed or reduced outliers 
  - Created a month column , Temp_anomaly_x , Season and Temp_anomaly_y.  Temp_anomaly_x  corresponds to monthly temperature anomalies, and  Temp_anomaly_y corresponds to the seasonal temperature anomalies.
  - Renamed the season basing on DJF: "Winter", MAM: "Spring", JJA: "Summer", "SON": "Fall".
- - Saved the datafrom the first phase of cleaning in <Feature_Engineered_Global_Temp.csv -->
+ - Saved the datafrom the first phase of cleaning in  [Feature_Engineered_Global_Temp.csv](Data_Science_Capstone_Project/Feature_Engineered_Global_Temp.csv)
 
 ### Exploaratory Analysis 1:
 EDA with python: 
 Key Insights:
   
   ## 1. Distribution of Temperature anomalies:
-  <EDA_graphs/Distribution_of_Global_Temp_Anomalies.png --> 1. This graph shows the distributin of temperature anomalies. There are multiple peaks meaning that some temperature anomalies occur more frequently than others.
+  [Distribution_of_Global_Temp_Anomalies.png](Data_Science_Capstone_Project/Distribution_of_Global_Temp_Anomalies.png)
+  
+  1. This graph shows the distributin of temperature anomalies. There are multiple peaks meaning that some temperature anomalies occur more frequently than others.
 
   2. The KDE curve (smooth green line) estimates the probability distribution of anomalies.
   3. the KDE curve shows multiple peaks, it could indicate distinct periods of warming and cooling trends.
@@ -179,4 +181,53 @@ The best-performing model based on R² score was **Random Forest**, with an R² 
 ✅ The best model was saved as `best_model.pkl` for deployment.
 
 
-### Streamlit App
+
+# App Deployment
+
+## Overview
+
+The deployed application provides an interactive platform for users to input a year and receive either the past global temperature anomalies or the predicted future global temperature anomalies. The app also visualizes predicted vs. actual temperature anomalies over time, allowing users to explore climate trends effectively.
+
+## Deployment Process
+
+The application was developed using **Streamlit**, a Python framework that enables easy deployment of machine learning models with interactive user interfaces. The deployment process involved the following steps:
+
+1. **Building the Streamlit App**:
+
+   - The app was implemented using Python and Streamlit.
+   - It loads the trained **Random Forest model**, which outperformed other models in the evaluation phase.
+   - Users can select a year, and the app predicts temperature anomalies based on historical data.
+
+2. **Setting Up the Environment**:
+
+   - Created a virtual environment to manage dependencies:
+     ```bash
+     python -m venv env
+     source env/bin/activate  # For macOS/Linux
+     env\Scripts\activate  # For Windows
+     ```
+   - Installed required libraries:
+     ```bash
+     pip install streamlit joblib pandas numpy scikit-learn xgboost
+     ```
+
+3. **Running the App Locally**:
+
+   - The app was tested locally using:
+     ```bash
+     streamlit run app.py
+     ```
+   -
+
+## User Interaction
+
+- The user interface includes a **year selection slider**.
+- The app displays the predicted temperature anomaly for the selected year.
+- A **graph** compares predicted and actual temperature anomalies over time.
+- Users can analyze climate trends using interactive visualization tools.
+<EDA_graphs/dashboard.png>
+
+## Conclusion
+
+The successful deployment of the machine learning model enables real-time predictions of global temperature anomalies. The app is user-friendly, interactive, and helps in understanding climate change patterns effectively. Future improvements may include additional models, enhanced UI components, and real-time data integration.
+
