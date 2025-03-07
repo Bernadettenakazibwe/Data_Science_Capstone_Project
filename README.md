@@ -47,7 +47,7 @@ Key Insights:
   
   ## 1. Distribution of Temperature anomalies:
  
-  ![Distribution_of_Global_Temp_Anomalies](Data_Science_Capstone_Project/Distribution_of_Global_Temp_Anomalies.png)
+  ![Distribution_of_Global_Temp_Anomalies](EDA_graphs/Distribution_of_Global_Temp_Anomalies.png)
 
   1. This graph shows the distributin of temperature anomalies. There are multiple peaks meaning that some temperature anomalies occur more frequently than others.
 
@@ -55,15 +55,21 @@ Key Insights:
   3. the KDE curve shows multiple peaks, it could indicate distinct periods of warming and cooling trends.
   4. The presence of high bars at 0 and 1°C suggests that anomalies are frequently at these values.
 
+  ###
+  ###
+  ###
 
-  <EDA_graphs/Tableu/2025-03-06 (1).png -->
+  ![Distribution_of_Global_Temp_Anomalies](EDA_graphs/Tableu/2025-03-06%20(1).png)
 
-  The above graph from Tableu visualisation shows also the distribution of Temperature anomalies over years with Temperature anomalies between 0 and 0.15 °C showing the highest freqeuncies.
+
+   The above graph from Tableu visualisation shows also the distribution of Temperature anomalies over years with Temperature anomalies between 0 and 0.15 °C showing the highest freqeuncies.
 
   The Temperature anomalies between  0.70 and 1.05 °C show the lowest frequency.
 
  ## Trend in the Yearly Temperature Anomalies. 
- <EDA_graphs/Global_Temperature_Anomaly_Trends_to_Present).png --> 
+
+ ![Global_Temperature_Anomaly_Trends_to_Present](EDA_graphs/Global_Temperature_Anomaly_Trends_to_Present.png )
+ 
 
  1. The above graph  shows trends in the Yearly Temperature anomalies(J-D) for the past 10 years with the temperature anomaly fluctuating  but increases significantly from  2022.
  2. Some years show a sharp rise, while others have a temporary decline before rising again.
@@ -72,7 +78,9 @@ Key Insights:
  4. The increasing trend suggests global warming, where temperatures are rising over time.
 
  ## Correlation between the temperature anomalies for months, seasons and annual anomalies.
- <EDA_graphs/Heatmap_of_Temp_anomalies.png -->
+
+ ![Correlation_heatmap](EDA_graphs/Heatmap_of_Temp_anomalies.png)
+
 
  1. The heatmap shows that temperature anomalies are generally consistent across months and seasons, meaning that if one month is unusually warm, nearby months are also likely to be warm. Forexample there is high correlation between January and the next five months(until May), also there is a zero or less correlation for the next months with January. This is the same trend with other months.
  2. Stronger correlations between seasonal and annual averages suggest that longer-term warming trends are evident. This shown by the annual temperature anomaliy (j-d) having high correlation across all months and seasons.
@@ -84,7 +92,10 @@ Key Insights:
 
 ## Data Preprocessing
  To build an accurate model for predicting global temperature anomalies, I  performed several data preprocessing steps to enhance the quality and usability of the dataset:
-   Data source file: <Feature_Engineered_Global_Temp.csv -->
+   
+   Data source file: [Feature_Engineered_Global_Temp.csv](Feature_Engineered_Global_Temp.csv)
+
+
   1. **Handling Categorical Variables:**
    - One-hot encoding was applied to the `Season` column, converting it into numerical format.
    - The `Month` column was converted from textual representation (e.g., "Jan") to numerical values (1-12).
@@ -162,7 +173,7 @@ The best-performing model based on R² score was **Random Forest**, with an R² 
    - A scatter plot was generated to compare predictions of each model against actual temperature anomalies.
    - The dashed black line represents an ideal prediction scenario where `Predicted = Actual`.
 
-   <EDA_graphs/scatterplot_pred_vs_actual.png -->
+   ![Predicted_vs_Actual](EDA_graphs/scatterplot_pred_vs_actual.png)
 
    - Linear Regression (blue points) shows large deviations from the ideal prediction line (black dashed line), meaning it struggles to capture the data patterns.
    - Random Forest (orange), XGBoost (green), and Decision Tree (red) have points more tightly clustered around the ideal line, suggesting better predictions.
@@ -173,7 +184,7 @@ The best-performing model based on R² score was **Random Forest**, with an R² 
    - Residual plots were created for all models to analyze prediction errors.
    - The best model should have residuals centered around zero with minimal variance.
 
-   <EDA_graphs/residualplot_pred_vs_actual.png -->
+   ![Residual_plot](EDA_graphs/residualplot_pred_vs_actual.png)
 
    - Linear Regression has significant errors, whereas Random Forest, XGBoost, and Decision Tree models have more concentrated and normally distributed residuals, indicating better predictive performance.
 
@@ -226,7 +237,7 @@ The application was developed using **Streamlit**, a Python framework that enabl
 - The app displays the predicted temperature anomaly for the selected year.
 - A **graph** compares predicted and actual temperature anomalies over time.
 - Users can analyze climate trends using interactive visualization tools.
-<EDA_graphs/dashboard.png>
+![Dashboard](EDA_graphs/dashboard.png)
 
 ## Conclusion
 
