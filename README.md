@@ -46,8 +46,9 @@ EDA with python:
 Key Insights:
   
   ## 1. Distribution of Temperature anomalies:
-  [Distribution_of_Global_Temp_Anomalies.png](Data_Science_Capstone_Project/Distribution_of_Global_Temp_Anomalies.png)
-  
+ 
+  ![Distribution_of_Global_Temp_Anomalies](Data_Science_Capstone_Project/Distribution_of_Global_Temp_Anomalies.png)
+
   1. This graph shows the distributin of temperature anomalies. There are multiple peaks meaning that some temperature anomalies occur more frequently than others.
 
   2. The KDE curve (smooth green line) estimates the probability distribution of anomalies.
